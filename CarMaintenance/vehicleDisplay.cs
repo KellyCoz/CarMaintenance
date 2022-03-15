@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace CarMaintenance
 {
-    class vehicleDisplay
+    class VehicleDisplay
     {
-        public static void displayLists(Personal[] pArray, Rental[] rArray)
+        public static void DisplayPersonal(Personal[] pArray)
         {
             Console.WriteLine("\nList of Personal Vehicles:\n");
             if (pArray.Length > 0)
@@ -25,6 +25,10 @@ namespace CarMaintenance
             {
                 Console.WriteLine("\nYou don't have any personal vehicles\n");
             }
+            
+        }
+        public static void DisplayRental(Rental[] rArray)
+        {
             Console.WriteLine("\nList of Rental Vehicles:\n");
             if (rArray.Length > 0)
             {
@@ -32,14 +36,15 @@ namespace CarMaintenance
                 foreach (Rental rental in rArray)
                 {
                     cnt++;
-                    Console.WriteLine("R"+cnt + ". " + rental.year + " " + rental.make + " " + rental.model);
+                    Console.WriteLine("R" + cnt + ". " + rental.year + " " + rental.make + " " + rental.model);
                 }
             }
             else
             {
-                Console.WriteLine("\nYou don't have any rental vehicles");
+                Console.WriteLine("\nYou don't have any rental vehicles\n");
             }
 
         }
     }
+    
 }
