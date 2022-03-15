@@ -122,17 +122,25 @@ namespace CarMaintenance
                 }
                 else if(userChoice1=="D")
                 {
-                    int i;
                     if(userChoice2=="P")
                     {
                         VehicleDisplay.DisplayPersonal(pArray);
                         Console.WriteLine("Please select the number corresponding to the vehicle you want to delete");
 
-                        int position = int.Parse(Console.ReadLine());
-                        
-                        for(i=position -1; i<pArray.Length; i++)
+                        int position = int.Parse(Console.ReadLine())-1;
+                        //delete 2nd item out of 3 -> position = 1, Length = 3
+                        while(position<pArray.Length)
                         {
-                            pArray[position] = pArray[position + 1];
+                            
+                            if(position ==pArray.Length-1)
+                            {
+                                Array.Resize(ref pArray, pArray.Length - 1);
+                            }
+                            else
+                            {
+                                pArray[position] = pArray[position + 1];
+                                position++;
+                            }
                         }
 
                     }
@@ -141,11 +149,20 @@ namespace CarMaintenance
                         VehicleDisplay.DisplayRental(rArray);
                         Console.WriteLine("Please select the number corresponding to the vehicle you want to delete");
 
-                        int position = int.Parse(Console.ReadLine());
+                        int position = int.Parse(Console.ReadLine())-1;
 
-                        for (i = position - 1; i < rArray.Length; i++)
+                        while (position < rArray.Length)
                         {
-                            rArray[position] = rArray[position + 1];
+
+                            if (position == rArray.Length - 1)
+                            {
+                                Array.Resize(ref rArray, rArray.Length - 1);
+                            }
+                            else
+                            {
+                                rArray[position] = rArray[position + 1];
+                                position++;
+                            }
                         }
 
                     }
