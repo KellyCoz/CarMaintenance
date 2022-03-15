@@ -66,7 +66,7 @@ namespace CarMaintenance
                 VehicleDisplay.DisplayPersonal(pArray);
                 VehicleDisplay.DisplayRental(rArray);
 
-                Console.WriteLine("\nWould you like to [A]dd a vehicle, [E]dit a vehicle, or [Q]uit the application?");
+                Console.WriteLine("\nWould you like to [A]dd a vehicle, [E]dit a vehicle, [D]elete a vehicle, or [Q]uit the application?");
 
                 userChoice1 = Console.ReadLine().ToUpper();
                 if(userChoice1!="Q")
@@ -120,9 +120,39 @@ namespace CarMaintenance
                         Console.ForegroundColor = ConsoleColor.White;
                     }
                 }
+                else if(userChoice1=="D")
+                {
+                    int i;
+                    if(userChoice2=="P")
+                    {
+                        VehicleDisplay.DisplayPersonal(pArray);
+                        Console.WriteLine("Please select the number corresponding to the vehicle you want to delete");
+
+                        int position = int.Parse(Console.ReadLine());
+                        
+                        for(i=position -1; i<pArray.Length; i++)
+                        {
+                            pArray[position] = pArray[position + 1];
+                        }
+
+                    }
+                    else if(userChoice2=="R")
+                    {
+                        VehicleDisplay.DisplayRental(rArray);
+                        Console.WriteLine("Please select the number corresponding to the vehicle you want to delete");
+
+                        int position = int.Parse(Console.ReadLine());
+
+                        for (i = position - 1; i < rArray.Length; i++)
+                        {
+                            rArray[position] = rArray[position + 1];
+                        }
+
+                    }
+                }
                 else
                 {
-                    Console.WriteLine("You have entered an invalid choice. Please make selection as either P1 (P2, P3..) or R1 (R2, R3...)");
+                    Console.WriteLine("Please select the number corresponding to the Vehicle you wish to select.");
                 }
                 
             } while (userChoice1 != "Q");
@@ -131,7 +161,7 @@ namespace CarMaintenance
             pReader.Close();
             rReader.Close();
 
-            //Delete Old files replace with new blank file
+            //declare streamwriters, with append=false (so that it will overwrite the old file)
           
             var pWriter = new StreamWriter("personalVehicle.csv",false);
             var rWriter = new StreamWriter("rentalVehicle.csv",false);
