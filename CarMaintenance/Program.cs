@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using GemBox.Spreadsheet;
 using System.Collections.Generic;
 
 
@@ -17,11 +16,12 @@ namespace CarMaintenance
 
             var folder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 
-            var pReader = new StreamReader($"{folder}{Path.DirectorySeparatorChar}personalVehicle.csv");
-            var rReader = new StreamReader($"{folder}{Path.DirectorySeparatorChar}rentalVehicle.csv");
+            //var pReader = new StreamReader($"{folder}{Path.DirectorySeparatorChar}personalVehicle.csv");
+            //var rReader = new StreamReader($"{folder}{Path.DirectorySeparatorChar}rentalVehicle.csv");
 
-            if (Directory.Exists($"{folder}{Path.DirectorySeparatorChar}personalVehicle.csv"))
-            {
+            var pReader = new StreamReader("personalVehicle.csv");
+            var rReader = new StreamReader("rentalVehicle.csv");
+
                 //Read the personal csv into the personal array
                 while (!pReader.EndOfStream)
                 {
@@ -39,10 +39,8 @@ namespace CarMaintenance
                     pArray[pArray.Length - 1] = personal;
 
                 }
-            }
             //Read the rental csv into the rental array
-            if (Directory.Exists($"{folder}{Path.DirectorySeparatorChar}rentalVehicle.csv"))
-            {
+
                 while (!rReader.EndOfStream)
                 {
                     var lineFromRReader = rReader.ReadLine();
@@ -52,14 +50,14 @@ namespace CarMaintenance
                     rental.make = rReaderArray[1];
                     rental.model = rReaderArray[2];
                     rental.mileage = int.Parse(rReaderArray[3]);
-                    rental.rentalDate = DateTime.Parse(rReaderArray[4]);
-                    rental.rentalPeriod = int.Parse(rReaderArray[5]);
+                    rental.mileageWhenRented=int.Parse(rReaderArray[4]);
+                    rental.rentalDate = DateTime.Parse(rReaderArray[5]);
+                    rental.rentalPeriod = int.Parse(rReaderArray[6]);
 
                     Array.Resize(ref rArray, rArray.Length + 1);
                     rArray[rArray.Length - 1] = rental;
 
                 }
-            }
             //Run the program
             do
             {
@@ -134,28 +132,21 @@ namespace CarMaintenance
             rReader.Close();
 
             //Delete Old files replace with new blank file
-            if (!Directory.Exists($"{folder}{Path.DirectorySeparatorChar}personalVehicle.csv"))
-            {
-                Directory.CreateDirectory($"{folder}{Path.DirectorySeparatorChar}personalVehicle.csv");
-            }
-            else if(Directory.Exists($"{folder}{Path.DirectorySeparatorChar}personalVehicle.csv"))
-            {
-                Directory.Delete($"{folder}{Path.DirectorySeparatorChar}personalVehicle.csv");
-                Directory.CreateDirectory($"{folder}{Path.DirectorySeparatorChar}personalVehicle.csv");
-            }
-            if (!Directory.Exists($"{folder}{Path.DirectorySeparatorChar}rentalVehicle.csv"))
-            {
-                Directory.CreateDirectory($"{folder}{Path.DirectorySeparatorChar}rentalVehicle.csv");
-            }
-            else if (Directory.Exists($"{folder}{Path.DirectorySeparatorChar}rentalVehicle.csv"))
-            {
-                Directory.Delete($"{folder}{Path.DirectorySeparatorChar}rentalVehicle.csv");
-                Directory.CreateDirectory($"{folder}{Path.DirectorySeparatorChar}rentalVehicle.csv");
-            }
+          
+            var pWriter = new StreamWriter("personalVehicle.csv",false);
+            var rWriter = new StreamWriter("rentalVehicle.csv",false);
             //write arrays to the new, blank file
-            
+            foreach (Personal personal in pArray)
+            {
+                pWriter.WriteLine(personal.year+","+personal.make+","+personal.model+","+personal.mileage.ToString()+","+personal.mileageOfLastOilChange+","+personal.lastOilChangeDate.ToString());
+            }
+            foreach(Rental rental in rArray)
+            {
+                rWriter.WriteLine(rental.year+","+rental.make+","+rental.model+","+rental.mileage.ToString()+","+rental.mileageWhenRented.ToString()+","+rental.rentalDate.ToString()+","+rental.rentalPeriod.ToString());
+            }
             //close the writers
-
+            pWriter.Close();
+            rWriter.Close();
         }
     }
 }
