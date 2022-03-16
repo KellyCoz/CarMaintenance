@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
 
@@ -69,21 +70,41 @@ namespace CarMaintenance
                 Console.WriteLine("\nWould you like to [A]dd a vehicle, [E]dit a vehicle, [D]elete a vehicle, or [Q]uit the application?");
 
                 userChoice1 = Console.ReadLine().ToUpper();
-                if(userChoice1!="Q")
+                string pattern = @"A|E|D|Q";
+                Regex regex = new(pattern);
+                while (!regex.IsMatch(userChoice1))
+                {
+                    Console.WriteLine("\nWould you like to [A]dd a vehicle, [E]dit a vehicle, [D]elete a vehicle, or [Q]uit the application?");
+                    userChoice1 = Console.ReadLine().ToUpper();
+                }
+                if (userChoice1!="Q")
                 {
                     Console.Write("\nSelect [P]ersonal or [R]ental: ");
-                    userChoice2 = Console.ReadLine();
+                    userChoice2 = Console.ReadLine().ToUpper();
                 }
-                //Add Regex here
+                
                 if (userChoice1 == "E")
                 {
                     if (userChoice2=="P")
                     {
+                        string pSelectS;
+                        int pSelectN;
+                        string number = @"[0-9]*";
+                        Regex nRegex = new(number);
                         VehicleDisplay.DisplayPersonal(pArray);
-                        Console.Write("\nSelect Vehicle from numbered list.");
-                        int pSelect = int.Parse(Console.ReadLine());
-                        IVehicle pVehicle = pArray[pSelect - 1];
-                        pArray[pSelect - 1] = (Personal)pVehicle.EditVehicle(pVehicle);
+                        bool valid = false;
+                        do
+                        {
+                            Console.Write("\nSelect Vehicle from numbered list.");
+                            pSelectS = (Console.ReadLine());
+                            if(int.TryParse(pSelectS, out pSelectN) && nRegex.IsMatch(pSelectS)&&pSelectN<=pArray.Length)
+                            {
+                                valid = true;
+                            }
+                        } while (!valid);
+
+                        IVehicle pVehicle = pArray[pSelectN - 1];
+                        pArray[pSelectN - 1] = (Personal)pVehicle.EditVehicle(pVehicle);
                     }
                     else if (userChoice2=="R")
                     {
