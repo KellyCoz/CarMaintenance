@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +7,34 @@ using System.Threading.Tasks;
 
 namespace CarMaintenance
 {
-    class Personal: Vehicle, IVehicle
+    class Personal: IVehicle
     {
         public int mileageOfLastOilChange;
         public DateTime lastOilChangeDate;
-        
-
+        public string year;
+        public string Year
+        {
+            get => year;
+            set => year = value;
+        }
+        public string make;
+        public string Make
+        {
+            get => make;
+            set => make = value;
+        }
+        public string model;
+        public string Model
+        {
+            get => model;
+            set => model = value;
+        }
+        public int mileage;
+        public int Mileage
+        {
+            get => mileage;
+            set => mileage = value;
+        }
         public IVehicle GetVehicle()
         {
             Console.WriteLine("\nFirst let's get some information about your vehicle.");
@@ -28,7 +51,7 @@ namespace CarMaintenance
             Console.Write("\nPlease enter date of at last oil change (mm-dd-yyy): ");
             lastOilChangeDate = DateTime.Parse(Console.ReadLine());
 
-            Personal personal = new Personal
+            Personal personal = new()
             { year = year, 
                 make=make, 
                 model=model,
@@ -40,12 +63,45 @@ namespace CarMaintenance
             return personal;
 
         }
-        public IVehicle EditVehicle(IVehicle vehicle)
+        public void DisplayVehicle(Personal personal)
         {
-            vehicle = vehicle.GetVehicle();
+            Console.WriteLine("Vehicle details: ");
+            Console.WriteLine("[Y]ear: " + personal.Year);
+            Console.WriteLine("[Ma]ke: " + personal.Make);
+            Console.WriteLine("[Mo]del: " + personal.Model);
+            Console.WriteLine("[Mi]leage: " + personal.Year);
+            Console.WriteLine("[D]ate of Oil Change: " + personal.lastOilChangeDate);
 
-            return vehicle;
         }
+        public Personal EditVehicle(Personal personal)
+        {
+            string choice = "";
+
+            DisplayVehicle(personal);
+
+            do
+            {
+                string updatedValue;
+
+                Console.WriteLine("Select a detail to edit. (Type [S] to save.)");
+                choice = Console.ReadLine().ToUpper();
+                Console.Write("Enter the new value: ");
+                updatedValue = Console.ReadLine();
+
+                if (choice == "Y")
+                    personal.year = updatedValue;
+                else if (choice == "MA")
+                    personal.make = updatedValue;
+                else if (choice == "MO")
+                    personal.model = updatedValue;
+                else if (choice == "MI")
+                    personal.mileage = int.Parse(updatedValue);
+                else if (choice == "D")
+                    personal.lastOilChangeDate = DateTime.Parse(updatedValue);
+
+            } while (choice != "S");
+            return personal;
+         }
 
         public void OilChange(int mileage, int mileageOfLastOilChange, DateTime lastOilChangeDate)
         {

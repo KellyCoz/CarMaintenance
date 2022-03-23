@@ -9,4 +9,13 @@
     <PackageReference Include="GemBox.Spreadsheet" Version="47.0.1418" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Files\personalVehicle.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Files\rentalVehicle.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

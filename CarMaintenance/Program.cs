@@ -10,15 +10,10 @@ namespace CarMaintenance
     {
         static void Main()
         {
-            string userChoice1="";
+            string userChoice1;
             string userChoice2="";
             Personal[] pArray = Array.Empty<Personal>();
             Rental[] rArray = Array.Empty<Rental>();
-
-            var folder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-
-            //var pReader = new StreamReader($"{folder}{Path.DirectorySeparatorChar}personalVehicle.csv");
-            //var rReader = new StreamReader($"{folder}{Path.DirectorySeparatorChar}rentalVehicle.csv");
 
             var pReader = new StreamReader("personalVehicle.csv");
             var rReader = new StreamReader("rentalVehicle.csv");
@@ -103,7 +98,7 @@ namespace CarMaintenance
                             }
                         } while (!valid);
 
-                        IVehicle pVehicle = pArray[pSelectN - 1];
+                        Personal pVehicle = pArray[pSelectN - 1];
                         pArray[pSelectN - 1] = (Personal)pVehicle.EditVehicle(pVehicle);
                     }
                     else if (userChoice2=="R")
@@ -111,7 +106,7 @@ namespace CarMaintenance
                         VehicleDisplay.DisplayRental(rArray);
                         Console.Write("\nSelect Vehicle from numbered list.");
                         int rSelect = int.Parse(Console.ReadLine());
-                        IVehicle rVehicle = rArray[rSelect - 1];
+                        Rental rVehicle = rArray[rSelect - 1];
                         rArray[rSelect - 1] = (Rental)rVehicle.EditVehicle(rVehicle);
                     }
                 }

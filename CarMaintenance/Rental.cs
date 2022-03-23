@@ -6,13 +6,37 @@ using System.Threading.Tasks;
 
 namespace CarMaintenance
 {
-    class Rental: Vehicle, IVehicle
+    class Rental: IVehicle
     {
         public int mileageWhenRented;
         public DateTime rentalDate;
         public int rentalPeriod;
+        public string year;
+        public string Year
+        {
+            get => year;
+            set => year = value;
+        }
+        public string make;
+        public string Make
+        {
+            get => make;
+            set => make = value;
+        }
+        public string model;
+        public string Model
+        {
+            get => model;
+            set => model = value;
+        }
+        public int mileage;
+        public int Mileage
+        {
+            get => mileage;
+            set => mileage = value;
+        }
         //public List<IVehicle> rentals = new List<IVehicle>();
-        
+
         public IVehicle GetVehicle()
         {
             Console.WriteLine("\nFirst let's get some information about your vehicle.");
@@ -31,7 +55,7 @@ namespace CarMaintenance
             Console.Write("\nEnter the number of days the car is to be rented");
             rentalPeriod = int.Parse(Console.ReadLine());
 
-            Rental rental = new Rental
+            Rental rental = new()
             {
                 year = year,
                 make = make,
