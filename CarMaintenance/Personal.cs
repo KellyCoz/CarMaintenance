@@ -40,7 +40,7 @@ namespace CarMaintenance
             Console.WriteLine("\nFirst let's get some information about your vehicle.");
             Console.Write("Please enter the year: ");
             year = Console.ReadLine();
-            Console.WriteLine("\nPlease enter the make: ");
+            Console.Write("\nPlease enter the make: ");
             make = Console.ReadLine();
             Console.Write("\nPlease enter the model: ");
             model = Console.ReadLine();
@@ -75,7 +75,7 @@ namespace CarMaintenance
         }
         public Personal EditVehicle(Personal personal)
         {
-            string choice = "";
+            string choice;
 
             DisplayVehicle(personal);
 
@@ -85,32 +85,34 @@ namespace CarMaintenance
 
                 Console.WriteLine("Select a detail to edit. (Type [S] to save.)");
                 choice = Console.ReadLine().ToUpper();
-                Console.Write("Enter the new value: ");
-                updatedValue = Console.ReadLine();
+                if (choice != "S")
+                {
+                    Console.Write("Enter the new value: ");
+                    updatedValue = Console.ReadLine();
 
-                if (choice == "Y")
-                    personal.year = updatedValue;
-                else if (choice == "MA")
-                    personal.make = updatedValue;
-                else if (choice == "MO")
-                    personal.model = updatedValue;
-                else if (choice == "MI")
-                    personal.mileage = int.Parse(updatedValue);
-                else if (choice == "D")
-                    personal.lastOilChangeDate = DateTime.Parse(updatedValue);
-
+                    if (choice == "Y")
+                        personal.year = updatedValue;
+                    else if (choice == "MA")
+                        personal.make = updatedValue;
+                    else if (choice == "MO")
+                        personal.model = updatedValue;
+                    else if (choice == "MI")
+                        personal.mileage = int.Parse(updatedValue);
+                    else if (choice == "D")
+                        personal.lastOilChangeDate = DateTime.Parse(updatedValue);
+                }
             } while (choice != "S");
             return personal;
          }
 
-        public void OilChange(int mileage, int mileageOfLastOilChange, DateTime lastOilChangeDate)
+        public void OilChange(Personal personal)
         {
-            int milesUntilOilChange = 3000 - (mileage - mileageOfLastOilChange);
-            int daysUntilOilChange = 90 - (int)(DateTime.Now - lastOilChangeDate).TotalDays;
+            int milesUntilOilChange = 3000 - (personal.mileage -personal.mileageOfLastOilChange);
+            int daysUntilOilChange = 90 - (int)(DateTime.Now - personal.lastOilChangeDate).TotalDays;
             if (daysUntilOilChange <= 0 || milesUntilOilChange <= 0)
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine("\tYour "+year+" "+make+" "+model+" is overdue for an oil change!");
+                Console.WriteLine("\tYour "+personal.year+" "+personal.make+" "+personal.model+" is overdue for an oil change!");
                 if(daysUntilOilChange <=0)
                 {
                     Console.WriteLine("\tVehicle was do for oil change " + (0 - daysUntilOilChange) + " days ago.");

@@ -42,7 +42,7 @@ namespace CarMaintenance
             Console.WriteLine("\nFirst let's get some information about your vehicle.");
             Console.Write("Please enter the year: ");
             year = Console.ReadLine();
-            Console.WriteLine("\nPlease enter the make: ");
+            Console.Write("\nPlease enter the make: ");
             make = Console.ReadLine();
             Console.Write("\nPlease enter the model: ");
             model = Console.ReadLine();
@@ -67,12 +67,53 @@ namespace CarMaintenance
             
             return rental;
         }
-   
-        public IVehicle EditVehicle(IVehicle vehicle)
+  
+        public void DisplayVehicle(Rental rental)
         {
-            vehicle = vehicle.GetVehicle();
+            Console.WriteLine("Vehicle details: ");
+            Console.WriteLine("[Y]ear: " + rental.Year);
+            Console.WriteLine("[Ma]ke: " + rental.Make);
+            Console.WriteLine("[Mo]del: " + rental.Model);
+            Console.WriteLine("[Mi]leage: " + rental.Year);
+            Console.WriteLine("[B]eginning Mileage: " + rental.mileageWhenRented);
+            Console.WriteLine("[D]ate rental began: " + rental.rentalDate);
 
-            return vehicle;
+        }
+
+        public Rental EditVehicle(Rental rental)
+        {
+            string choice;
+
+            DisplayVehicle(rental);
+
+            do
+            {
+                string updatedValue;
+
+                Console.WriteLine("Select a detail to edit. (Type [S] to save.)");
+                choice = Console.ReadLine().ToUpper();
+
+                if (choice != "S")
+                {
+                    Console.Write("Enter the new value: ");
+                    updatedValue = Console.ReadLine();
+
+                    if (choice == "Y")
+                        rental.year = updatedValue;
+                    else if (choice == "MA")
+                        rental.make = updatedValue;
+                    else if (choice == "MO")
+                        rental.model = updatedValue;
+                    else if (choice == "MI")
+                        rental.mileage = int.Parse(updatedValue);
+                    else if (choice == "B")
+                        rental.mileageWhenRented = int.Parse(updatedValue);
+                    else if (choice == "D")
+                        rental.rentalDate = DateTime.Parse(updatedValue);
+                }
+
+            } while (choice != "S");
+            return rental;
         }
 
     }

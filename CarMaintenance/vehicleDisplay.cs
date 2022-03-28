@@ -18,7 +18,7 @@ namespace CarMaintenance
                 {
                     cnt++;
                     Console.WriteLine(cnt + ".\t" + personal.year + " " + personal.make + " " + personal.model);
-                    personal.OilChange(personal.mileage, personal.mileageOfLastOilChange, personal.lastOilChangeDate);
+                    personal.OilChange(personal);
                 }
             }
             else
@@ -36,7 +36,7 @@ namespace CarMaintenance
                 foreach (Rental rental in rArray)
                 {
                     cnt++;
-                    Console.WriteLine(cnt + ". " + rental.year + " " + rental.make + " " + rental.model);
+                    Console.WriteLine(cnt + ".\t" + rental.year + " " + rental.make + " " + rental.model);
                 }
             }
             else
