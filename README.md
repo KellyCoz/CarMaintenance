@@ -23,8 +23,9 @@ This console app was created as part of my Code Kentucky project. This app meets
 1. There is a ReadMe
 2. The project was commited to GitHub a minimum of 5 times.
 3. The project contains at least one class that which is populated with data with the data displayed. (Personal and Rental vehicle classes.)
-4. There are at least 3 methods with at least one returning a value used.
+4. There are at least 3 methods with at least one returning a value used. (The GetVehicle(iVehicle) returns a personal and/or rental depending on how its called.)
 5. The code contains at least one master loop. (The master loop is exited when the user chooses 'Q'. There is also another loop that is exited when user chooses 'S'.)
 6. The project reads data from a csv, and writes data back to the csv file. (Perhaps done in a more complicated way than was necessary.)
 7. There is at least one Regex validation made on user entries.
 8. The code calculates and displays data (Oil change uses Date.Now to calculate how many days until the rental must be returned)
+9. The app also defines and implements an interface 'iVehicle' which is used by Personal.cs and Rental.cs (Ernesto approved this an additonal feature.)
