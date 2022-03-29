@@ -11,6 +11,13 @@ For personal vehicles, it will also display a message pertaining to the vehicle'
 For rental vehicles, it will display a message pertaining to the vehicle's 'rental status', warning the user if a vehicle should be returned soon (based on rental
 period) or if the vehicle is nearing mileage limits.
 
+The user will be prompted for inputs at various points during program execution. The user will either enter a number from a list or letters found in [ ]. For example, the user will be asked to [A]dd, [E]dit, or [D]elete a vehicle and the user can type 'a' to Add, 'e' to Edit, or 'd' to Delete.
+
+If the user doesn't choose to [Q]uit, they will be prompted to either [A]dd, [E]dit, or [D]elete a vehicle.
+
+The user is then asked to choose which type of vehicle they want to Add, Edit or Delete by selecting  [P]ersonal or [R]ental. If editing or deleting a vehicle, the user
+will submit a number corresponding to the vehicle's position in the list.
+
 This console app was created as part of my Code Kentucky project. This app meets the following Code Kentucky Programing Pathway requirement:
 
 1. There is a ReadMe
